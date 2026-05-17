@@ -122,18 +122,24 @@ def align_labels_with_mbert(tokenizer, words, tags, max_length=512):
 
 
 def encode_labels(labels, label_to_id):
-    # I turn string labels into integers for HuggingFace.
+    # turn string labels into integers for HuggingFace.
     return [[label_to_id[tag] for tag in sent] for sent in labels]
 
 
 def make_dataset(conllu_file, tokenizer, label_to_id, max_length=512):
-    # I build one HuggingFace dataset from one conllu file.
     rows = []
-
     for sentence in load_conllu_sentences(conllu_file):
+        # Apply the UD multiword-token normalization.
         words, tags = normalize_ud_sentence(sentence)
-        encoded = align_labels_with_mbert(tokenizer, words, tags, max_length=max_length)
+        # Tokenize with mBERT and align labels to subtokens.
+        encoded = align_labels_with_mbert(
+            tokenizer,
+            words,
+            tags,
+            max_length=max_length
+        )
+        # Convert string labels into integer ids.
         encoded["labels"] = [label_to_id[tag] for tag in encoded["labels"]]
+        # Each row must contain the keys expected by the model.
         rows.append(encoded)
-
     return Dataset.from_list(rows)

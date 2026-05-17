@@ -20,15 +20,12 @@ def collect_all_labels(params):
 
 
 def save_label_map(labels, output_file):
-    # I use -100 for <pad> because PyTorch ignores it in token classification loss.
+    # use -100 for <pad> because PyTorch ignores it in token classification loss.
     label_to_id = {label: i for i, label in enumerate(labels) if label != "<pad>"}
     label_to_id["<pad>"] = -100
-
     id_to_label = {str(i): label for label, i in label_to_id.items() if i != -100}
-
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump({"label_to_id": label_to_id, "id_to_label": id_to_label}, f, indent=2, ensure_ascii=False)
-
     return label_to_id
 
 
@@ -92,6 +89,7 @@ def compute_truncation_stats(params, tokenizer):
             })
 
     return pd.DataFrame(rows)
+
 
 
 def main():
