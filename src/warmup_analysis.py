@@ -92,7 +92,8 @@ def main():
     print("Saved file:")
     print(results_dir / "fr_sequoia_tokens_with_spaces.csv")
 
-    #tokenizer = AutoTokenizer.from_pretrained(params["model_checkpoint"])
-    #example = "Pouvez-vous donner les mêmes garanties au sein de l’Union Européene"
+    tokenizer = AutoTokenizer.from_pretrained(params["model_checkpoint"],clean_up_tokenization_spaces=False)
+    example = "Pouvez-vous donner les mêmes garanties au sein de l’Union Européene"
+    print(tokenizer.tokenize(example))
 
 if __name__ == "__main__": main()
