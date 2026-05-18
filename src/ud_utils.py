@@ -95,7 +95,6 @@ def align_labels_with_mbert(tokenizer, words, tags, max_length=512):
         words,
         is_split_into_words=True,
         return_offsets_mapping=True,
-        padding="max_length",
         truncation=True,
         max_length=max_length,
     )

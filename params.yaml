@@ -1,0 +1,59 @@
+seed: 42
+model_checkpoint: bert-base-multilingual-cased
+batch_size: 8
+num_train_epochs: 3
+learning_rate: 0.00002
+weight_decay: 0.01
+max_length: 512
+languages:
+  fr:
+    name: French-Sequoia
+    family: Romance
+    script: Latin
+    base_url: https://raw.githubusercontent.com/UniversalDependencies/UD_French-Sequoia/master
+    train: fr_sequoia-ud-train.conllu
+    dev: fr_sequoia-ud-dev.conllu
+    test: fr_sequoia-ud-test.conllu
+  es:
+    name: Spanish-AnCora
+    family: Romance
+    script: Latin
+    base_url: https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/master
+    train: es_ancora-ud-train.conllu
+    dev: es_ancora-ud-dev.conllu
+    test: es_ancora-ud-test.conllu
+  it:
+    name: Italian-ISDT
+    family: Romance
+    script: Latin
+    base_url: https://raw.githubusercontent.com/UniversalDependencies/UD_Italian-ISDT/master
+    train: it_isdt-ud-train.conllu
+    dev: it_isdt-ud-dev.conllu
+    test: it_isdt-ud-test.conllu
+  en:
+    name: English-EWT
+    family: Germanic
+    script: Latin
+    base_url: https://raw.githubusercontent.com/UniversalDependencies/UD_English-EWT/master
+    train: en_ewt-ud-train.conllu
+    dev: en_ewt-ud-dev.conllu
+    test: en_ewt-ud-test.conllu
+  de:
+    name: German-GSD
+    family: Germanic
+    script: Latin
+    base_url: https://raw.githubusercontent.com/UniversalDependencies/UD_German-GSD/master
+    train: de_gsd-ud-train.conllu
+    dev: de_gsd-ud-dev.conllu
+    test: de_gsd-ud-test.conllu
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  results_dir: results
+  reports_dir: reports
+  label_map: data/processed/label_map.json
+  corpus_stats: results/corpus_stats.csv
+  truncation_stats: results/truncation_stats.csv
+  warmup_report: reports/warmup_fr_sequoia.md
+  matrix_csv: results/transfer_matrix.csv
+  matrix_md: reports/transfer_matrix.md

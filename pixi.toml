@@ -1,0 +1,40 @@
+[workspace]
+authors = ["Ala Karamkesh <alakaramkesh@gmail.com>"]
+description = "mBERT POS tagging and multilingual transfer with UD data"
+channels = ["pytorch", "nvidia", "conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+download = "python src/download_data.py"
+warmup = "python src/warmup_analysis.py"
+prepare = "python src/prepare_datasets.py"
+train_all = "python src/train_all.py"
+eval_matrix = "python src/evaluate_matrix.py"
+answer_notes = "python src/write_answer_notes.py"
+repro = "dvc repro"
+
+
+[dependencies]
+python = "3.11.*"
+pip = "*"
+pytorch = "*"
+pytorch-cuda = "12.1.*"
+transformers = ">=4.40,<4.45"
+datasets = ">=2.19,<3"
+pyarrow = ">=15,<21"
+tokenizers = "*"
+scikit-learn = "*"
+pandas = "*"
+matplotlib-base = "*"
+pyyaml = "*"
+conllu = "*"
+requests = "*"
+tqdm = "*"
+dvc = "*"
+
+[pypi-dependencies]
+conllu = "*"
+datasets = "*"
+transformers = "*"
+accelerate = "*"
+seqeval = "*"
