@@ -1,0 +1,30 @@
+logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# DVC cache
+.dvc/cache/
+
+# Generated datasets
+data/processed/
+data/raw/*.conllu
+
+
+# Models
+models/
+checkpoints/
+
+
+# Results
+results/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# Mac/Linux hidden files
+.DS_Store

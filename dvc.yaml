@@ -1,0 +1,58 @@
+stages:
+  download_data:
+    cmd: pixi run python src/download_data.py
+    deps:
+      - src/download_data.py
+      - src/ud_utils.py
+      - params.yaml
+    outs:
+      - data/raw
+
+  warmup_analysis:
+    cmd: pixi run python src/warmup_analysis.py
+    deps:
+      - src/warmup_analysis.py
+      - src/ud_utils.py
+      - params.yaml
+      - data/raw
+    outs:
+      - results/fr_sequoia_label_distribution.csv
+      - results/fr_sequoia_mwt.csv
+      - results/fr_sequoia_tokens_with_spaces.csv
+      - results/fr_sequoia_label_distribution.png
+
+  prepare_datasets:
+    cmd: pixi run python src/prepare_datasets.py
+    deps:
+      - src/prepare_datasets.py
+      - src/ud_utils.py
+      - params.yaml
+      - data/raw
+    outs:
+      - data/processed
+      - results/corpus_stats.csv
+      - results/truncation_stats.csv
+
+  train_all:
+    cmd: pixi run python src/train_all.py
+    deps:
+      - src/train_all.py
+      - src/ud_utils.py
+      - params.yaml
+      - data/processed
+    outs:
+      - models
+      - results/dev_results.csv
+
+  evaluate_matrix:
+    cmd: pixi run python src/evaluate_matrix.py
+    deps:
+      - src/evaluate_matrix.py
+      - src/ud_utils.py
+      - params.yaml
+      - data/processed
+      - models
+    outs:
+      - results/transfer_matrix_long.csv
+      - results/transfer_matrix.csv
+      - reports/transfer_matrix.md
