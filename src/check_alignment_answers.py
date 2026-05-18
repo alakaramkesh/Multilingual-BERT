@@ -51,6 +51,7 @@ def show_q13(params):
 
 
 def main():
+    # Print small checks used for the report answers.
     params = read_yaml("params.yaml")
     tokenizer = AutoTokenizer.from_pretrained(
         params["model_checkpoint"],

@@ -10,7 +10,6 @@ warmup = "python src/warmup_analysis.py"
 prepare = "python src/prepare_datasets.py"
 train_all = "python src/train_all.py"
 eval_matrix = "python src/evaluate_matrix.py"
-answer_notes = "python src/write_answer_notes.py"
 repro = "dvc repro"
 
 

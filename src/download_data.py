@@ -15,14 +15,16 @@ def main():
     params = read_yaml("params.yaml")
     raw_dir = Path(params["paths"]["raw_dir"])
     for lang, cfg in params["languages"].items():
-        # download train, dev, and test files for each selected language.
+        # Download train, dev, and test files for each selected language.
         for split in ["train", "dev", "test"]:
             filename = cfg[split]
             url = f"{cfg['base_url']}/{filename}"
             out_path = raw_dir / lang / filename
-            if out_path.exists(): continue
+            if out_path.exists():
+                continue
             download_file(url, out_path)
             print(f"Saved {out_path}")
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()

@@ -5,11 +5,17 @@ import pandas as pd
 import torch
 from tqdm import tqdm
 from datasets import load_from_disk
-from transformers import AutoModelForTokenClassification, AutoTokenizer, DataCollatorForTokenClassification, TrainingArguments, Trainer
+from transformers import (
+    AutoModelForTokenClassification,
+    AutoTokenizer,
+    DataCollatorForTokenClassification,
+    TrainingArguments,
+    Trainer,
+)
 from ud_utils import load_json, read_yaml
 
 def set_seed(seed):
-    # fix random seeds to make training more reproducible.
+    # Fix random seeds to make training more reproducible.
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -60,7 +66,6 @@ def main():
         clean_up_tokenization_spaces=False,
     )
     data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer)
-    #for lang in params["languages"]:
     for lang in tqdm(params["languages"], desc="Training languages"):
         # Train one POS tagger for each selected language.
         print(f"\nTraining POS tagger on {lang}")

@@ -5,12 +5,12 @@ import json
 
 
 def read_yaml(path):
-    # read the project config file.
+    # Read the project config file.
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 def load_json(path):
-    # read a JSON file and return it as a Python dictionary.
+    # Read a JSON file and return it as a Python dictionary.
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -25,12 +25,12 @@ def is_empty_node_id(token_id):
 
 
 def clean_token_form(form):
-    # UD allows spaces inside tokens, but here I remove them for safer tokenization.
+    # Remove internal spaces before mBERT tokenization.
     return str(form).replace(" ", "")
 
 
 def load_conllu_sentences(filename):
-    # keep all tokens here because warmup needs to inspect multiword tokens too.
+    # Keep all tokens because warm-up checks multiword tokens too.
     with open(filename, "r", encoding="utf-8") as f:
         data = f.read()
     for sentence in conllu.parse(data):
@@ -38,7 +38,7 @@ def load_conllu_sentences(filename):
 
 
 def load_conllu(filename):
-    # load only real syntactic words with integer ids.
+    # Load only real syntactic words with integer ids.
     with open(filename, "r", encoding="utf-8") as f:
         data = f.read()
     for sentence in conllu.parse(data):
@@ -121,7 +121,7 @@ def align_labels_with_mbert(tokenizer, words, tags, max_length=512):
 
 
 def encode_labels(labels, label_to_id):
-    # turn string labels into integers for HuggingFace.
+    # Turn string labels into integers for HuggingFace.
     return [[label_to_id[tag] for tag in sent] for sent in labels]
 
 
